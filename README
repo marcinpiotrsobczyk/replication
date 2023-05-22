@@ -1,3 +1,0 @@
-dockerfiles for postgres replication(streaming) primary server and replicas
-
-docker-compose file adding also pgpool2 with automatic failover and failback

@@ -1,0 +1,32 @@
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/C++.gitlab-ci.yml
+
+# use the official gcc image, based on debian
+# can use versions as well, like gcc:5.2
+# see https://hub.docker.com/_/gcc/
+
+image: docker:23.0.6
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  CI_DEBUG_SERVICES: "true"
+
+
+startup:
+  image: docker:23.0.6
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:23.0.6-dind
+  script:
+    - docker images
+    - docker system df
+    - docker --version
+    - docker-compose --version

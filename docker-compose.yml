@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  pg_primary:
+    build: .
+    container_name: postgres_primary
+    volumes:
+      - primary_pgdata:/primary/pgdata
+      - pgarchives:/primary/pgarchives
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_DB=postgres
+      - POSTGRES_REP_USER=rep
+      - POSTGRES_REP_PASSWORD=rep_password
+      - POSTGRES_INITDB_WALDIR=/tmp/pginitdbwaldir
+      - PGDATA=/primary/pgdata
+    networks:
+      - postgres_network
+
+  pg_replica:
+    build: .
+    container_name: postgres_replica
+    volumes:
+      - replica_pgdata:/replica/pgdata
+    depends_on:
+      - pg_primary
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_DB=postgres
+      - POSTGRES_REP_USER=rep
+      - POSTGRES_REP_PASSWORD=rep_password
+      - POSTGRES_INITDB_WALDIR=/tmp/pginitdbwaldir
+      - PGDATA=/replica/pgdata
+      - REPLICATE_FROM=postgres_primary
+    networks:
+      - postgres_network
+
+volumes:
+  primary_pgdata:
+  replica_pgdata:
+  pgarchives:
+
+networks:
+  postgres_network:
