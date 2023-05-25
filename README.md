@@ -1,8 +1,8 @@
-# dockerfiles for postgres synchronous streaming replication: primary server and replica
+### dockerfiles for postgres synchronous streaming replication: primary server and replica
 
-# docker-compose file adding also pgpool2 with automatic failover and failback
+### docker-compose file adding also pgpool2 with automatic failover and failback
 
-# replicas can be scaled by:
+### replicas can be scaled by:
 
 
 docker-compose up -d
