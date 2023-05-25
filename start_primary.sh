@@ -22,6 +22,5 @@ docker run --name=postgres_primary --ipc=host --net=replication --ip=172.117.0.2
     --env=POSTGRES_DB=marcin_database \
     --env=POSTGRES_REP_USER=rep \
     --env=POSTGRES_REP_PASSWORD=rep_password \
-    --env=POSTGRES_INITDB_WALDIR=/primary/pginitdbwaldir \
     --env=PGDATA=/primary/pgdata \
     "replication_postgres:${COMMIT_SHA}"
