@@ -13,7 +13,7 @@ docker volume create replica_pgdata
 
 
 docker container rm postgres_replica || true
-docker run --detach --name=postgres_replica --ipc=host --net=replication --ip=172.117.0.3 --log-opt=tag="{{.Name}}" \
+docker run --name=postgres_replica --ipc=host --net=replication --ip=172.117.0.3 --log-opt=tag="{{.Name}}" \
     --volume=replica_pgdata:/replica/pgdata \
     --env=POSTGRES_USER=marcin \
     --env=POSTGRES_PASSWORD=marcin_password \
@@ -24,6 +24,3 @@ docker run --detach --name=postgres_replica --ipc=host --net=replication --ip=17
     --env=PGDATA=/replica/pgdata \
     --env=REPLICATE_FROM=postgres_primary \
     "replication_postgres:${COMMIT_SHA}"
-
-
-docker logs --details=true --timestamps postgres_replica -f &
