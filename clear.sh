@@ -15,6 +15,7 @@ echo -e "${BLUE}cleaning volumes${NC}"
 docker volume rm primary_pgdata || echo 'volume primary_pgdata already cleaned up'
 docker volume rm pgarchives || echo 'volume pgarchives already cleaned up'
 docker volume rm replica_pgdata || echo 'volume replica_pgdata already cleaned up'
+docker volume rm replica_pgdata2 || echo 'volume replica_pgdata2 already cleaned up'
 docker volume ls | (grep replica_pgdata || true) | awk '{print $2}' | xargs -I {} docker volume rm {}
 
 
